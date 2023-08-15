@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace= "/fragments/head :: head"></head>
+
+    <body class="bg-warning">
+
+        <!-- codigo de registro -->
+        <div class="modal modal-sheet position-static d-block p-4 py-md-5" tabindex="-1" role="dialog" id="modalSignin">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content rounded-4 shadow">
+                    <div class="modal-header p-5 pb-4 border-bottom-0">
+                        <h1 class="fw-bold mb-0 fs-2">Registrate gratis</h1>
+                        <a th:href="@{/}">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </a>
+                    </div>
+
+                    <div class="modal-body p-5 pt-0">
+                        <form th:action="@{/registro}" method="POST" enctype="multipart/form-data">
+
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control rounded-3" id="floatingInput" name="nombreUsuario" th:value="${nombreUsuario}" placeholder="nombre de usuario">
+                                <label for="floatingInput">Nombre de usuario</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="file" class="form-control rounded-3" name="archivo">
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control rounded-3" id="floatingPassword" name="password" th:value="${password}"  placeholder="contraseña">
+                                <label for="floatingPassword">Contraseña</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control rounded-3" id="floatingPassword" name="password2" placeholder="Repetir contraseña" th:value="${password2}">
+                                <label for="floatingPassword">Repetir contraseña</label>
+                            </div>
+
+
+
+                            <!-- Mensaje de error o exito -->
+                            <div th:replace="/fragments/error-exito :: div"></div>
+
+
+
+                            <button class="w-100 mb-2 btn btn-lg rounded-3 btn-warning" type="submit">Registrate</button>
+
+                            <hr class="my-4">
+                            <div class="row align-items-center">
+                                <div class="col text-center">
+                                    <p> <small class="text-center">Si ya tenes una cuenta <strong><a th:href="@{/login}">clic aquí</a></strong> para loguearte</small></p>
+                                    </form>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- Formumlario registro 
+        <div class="container mt-5">
+            <h2 class="mb-3">Registrate</h2>
+            <form th:action="@{/registro}" method="POST" >
+                <div class="mb-3">
+                    <input type="text" class="form-control" name="nombreUsuario" placeholder="nombre de Usuario" th:value="${nombreUsuario}">
+                </div>
+                <div class="mb-3">
+                    <input type="password" name="password" class="form-control" placeholder="Contraseña" th:value="${password}">
+                </div>
+                <div class="mb-3">
+                    <input type="password" name="password2" class="form-control" placeholder="Repetir contraseña" th:value="${password2}">
+                </div>
+                
+                <div  class="alert alert-danger" role="alert" th:if="${error != null}" >
+                    <h5> Error </h5>
+                    <p th:text="${error}"></p>
+                </div>   
+                <div class="alert alert-success" role="alert" th:if="${exito != null}" >
+                    <h5> Exito! </h5>
+                    <p th:text="${exito}"></p>
+                </div>
+                
+                
+                
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary" type="submit">registrar</button>
+                </div>
+
+
+                
+            </form>
+
+        </div>-->
+
+
+
+    </body>
+</html>

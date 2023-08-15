@@ -1,0 +1,60 @@
+<!-- Inicio para usuarios registrados -->
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <head th:replace= "/fragments/head :: head"></head>
+
+    <body >
+        <nav th:replace="/fragments/navbar :: nav"></nav>
+        <div class="container">
+            <div class="row row-cols-1 row-cols-md-3 g-4 mt-1">  
+
+
+                <!-- Contenedor de bienvenida para el Usuario -->
+                <div class="col d-flex align-items-center">
+                    <div>
+                        
+                         <div class="profile-image-container rounded-circle overflow-hidden " style="width: 100px; height: 100px;">
+                             <a th:if="${session.usuarioSession != null}">
+                                 <img class="profile-image img-fluid" th:if="${session.usuarioSession.imagen != null}" th:src="@{/imagen/perfil/__${session.usuarioSession.id}__}" alt="img logo egg">
+                             </a>
+                         </div> 
+                    </div>
+                    <div class="ms-3">
+                        <h4 th:if="${session.usuarioSession != null}" th:text="'Hola de vuelta, ' + ${session.usuarioSession.nombreUsuario}"></h4>
+                        <hr>
+                        <h6 class="lead">Enterate de todas nuestras últimas noticias en tecnología</h6>
+                    </div>
+                </div>
+
+
+
+
+                <!-- TARJETAS CON LAS NOTICIAS -->
+                <div class="col" th:each="noticia: ${noticias}" >
+                    <a th:href="@{/noticia/__${noticia.id}__}" class="text-decoration-none">
+                        <div class="card border h-100">
+                            <div class="card-body"  >
+                                <h5 class="card-title" th:text="${noticia.titulo}"></h5>
+                                <figcaption class="blockquote-footer mt-0" th:text="${#dates.format(noticia.publicacion, 'dd/MM/yyyy')}"> </figcaption>
+                                <p class="text-truncate" th:text="${noticia.creador.nombreUsuario}"></p>
+                                <p class="text-truncate" th:text="${noticia.cuerpo}"></p>
+                            </div>
+                        </div> 
+                    </a>
+                </div>
+            </div>
+
+
+
+
+
+
+        </div>
+        <footer th:replace="/fragments/footer :: footer"></footer>
+
+
+    </body>
+</html>

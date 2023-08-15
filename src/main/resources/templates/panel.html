@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace= "/fragments/head :: head"></head>
+
+    <body>
+        <!-- BARRA DE NAVEGACION -->
+        <nav th:replace="/fragments/navbar :: nav"></nav>
+
+        <!-- TARJETAS CON LAS NOTICIAS -->
+        <div class="col">
+            <h3>Actualiza tus datos</h3>
+
+            <form th:action="@{/admin/modificar/__${usuario.id}__}" method="POST" enctype="multipart/form-data">
+                <input hidden th:value="${id}" name="id">
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control rounded-3" id="floatingInput" name="nombreUsuario" th:value="${usuario.nombreUsuario}">
+                    <label for="floatingInput">Nuevo nombre de usuario</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="file" class="form-control rounded-3" name="archivo">
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control rounded-3" id="floatingPassword" name="password"  placeholder="contraseña">
+                    <label for="floatingPassword">Nueva contraseña</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control rounded-3" id="floatingPassword" name="password2" placeholder="Repetir contraseña">
+                    <label for="floatingPassword">Repetir contraseña</label>
+                </div>
+
+                <!-- Mensaje de error o exito -->
+                <div th:replace="/fragments/error-exito :: div"></div>
+                
+                
+                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-warning" type="submit">Actualizar</button>
+            </form>
+
+
+        </div>
+
+    </body>
+
+</html>

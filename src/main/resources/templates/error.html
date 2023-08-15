@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace= "/fragments/head :: head"></head>
+
+    <body class="bg-warning">
+        <div class="container my-5">
+            <div class="p-5 text-center bg-body-tertiary rounded-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class=" mb-3 bi bi-egg-fill text-warning" viewBox="0 0 16 16">
+                <path d="M14 10a6 6 0 0 1-12 0C2 5.686 5 0 8 0s6 5.686 6 10z"/>
+                </svg>
+                <h1 class="text-body-emphasis">Egg News</h1>
+               
+
+                <div class="mt-5">
+                    <h3 class="h3" th:text="'Error ' + ${codigo}"></h3>
+                    <p class="lead" th:text="${mensaje}"></p> 
+                </div>
+                <div class=" mt-1 d-inline-flex gap-2 mb-5" >
+                    <a th:href="@{/inicio}" class="text-decoration-none">
+                        <button class="btn btn-outline-secondary btn-lg px-4 rounded-pill" type="button" >volver</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

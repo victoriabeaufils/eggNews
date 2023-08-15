@@ -1,0 +1,41 @@
+<!-- Seccion de ingreso de usuarios no registrados -->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    
+    <head th:replace= "/fragments/head :: head"></head>
+    
+    <body class="bg-warning">
+        <div class="container my-5">
+            <div class="p-5 text-center bg-body-tertiary rounded-3">
+                
+                
+                
+                <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class=" mb-5 bi bi-egg-fill text-warning" viewBox="0 0 16 16">
+                <path d="M14 10a6 6 0 0 1-12 0C2 5.686 5 0 8 0s6 5.686 6 10z"/>
+                </svg>
+                <h1 class="text-body-emphasis">Bienvenido a Egg News</h1>
+                <p class="col-lg-8 mx-auto fs-5 text-muted">
+                    ¡Para acceder a todas nuestras noticias más actualizadas del mundo de la tecnología <strong>registrate</strong> o iniciá sesión con tu usuario y contraseña!
+                </p>
+                
+                
+                
+                <!-- Botones de login y registro -->
+                <div class=" mt-5 d-inline-flex gap-2 mb-5" >
+                    <a th:href="@{/registrar}" class="text-decoration-none">
+                        <button class="d-inline-flex  text-center align-items-center btn btn-warning btn-lg px-4 rounded-pill " type="button" th:href="@{/registrar}">Registrate</button>
+                    </a>
+                    <a th:href="@{/login}" class="text-decoration-none">
+                        <button class="btn btn-outline-secondary btn-lg px-4 rounded-pill" type="button" >Log In</button>
+                    </a>
+                </div>
+                
+                
+            </div>
+        </div>
+        
+        <footer th:replace="/fragments/footer :: footer"></footer>
+
+    </body>
+</html>

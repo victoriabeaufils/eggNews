@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  
+    <head th:replace= "/fragments/head :: head"></head>
+
+    <body class="d-flex align-items-center py-4 bg-body-tertiary mt-5">
+        <div class="form-signin w-50 m-auto">
+            <div class="text-center bg-body-tertiary rounded-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class=" mb-2 bi bi-egg-fill text-warning text-center" viewBox="0 0 16 16">
+                <path d="M14 10a6 6 0 0 1-12 0C2 5.686 5 0 8 0s6 5.686 6 10z"/>
+                </svg>
+                <h4 class="mb-5">Iniciar sesión</h4>
+            </div>
+
+            <!-- Mensaje de error o exito -->
+            <div th:replace="/fragments/error-exito :: div"></div>
+
+
+            <form th:action="@{/logincheck}" method="POST">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control rounded-3" id="floatingInput" name="nombreUsuario" placeholder="nombre de usuario">
+                    <label for="floatingInput">Nombre de usuario</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control rounded-3" id="floatingPassword" name="password" placeholder="contraseña">
+                    <label for="floatingPassword">Contraseña</label>
+                </div>
+
+                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-warning" type="submit">Iniciar sesión</button>
+            </form>
+            <hr class="my-4">
+            <div class="row align-items-center">
+                <div class="col text-center">
+                    <p> <small>Si no tenes una cuenta <strong><a th:href="@{/registrar}">clic aquí</a></strong> para registrarte</small></p>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

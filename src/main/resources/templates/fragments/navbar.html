@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg bg-warning">
+    <div class="container-fluid mx-5">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-egg-fill me-1 pl-5" viewBox="0 0 16 16">
+            <path d="M14 10a6 6 0 0 1-12 0C2 5.686 5 0 8 0s6 5.686 6 10z"></path>
+        </svg>
+        <a class="navbar-brand fw-bold" th:href="@{/inicio}">Egg News</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" th:href="@{/inicio}">Inicio</a>
+                </li>
+
+                <li sec:authorize="hasAnyRole('ADMIN','PERIODISTA')" class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Administrar noticias
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/noticia/subir}">Subir</a></li>
+                        <li><a class="dropdown-item" th:href="@{/noticia/modificar}">Modificar</a></li>
+                        <li><a class="dropdown-item" href="#">Eliminar</a></li>
+                    </ul>
+                </li>
+                <li sec:authorize="hasRole('ADMIN')" class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Administrar Usuarios
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/admin/registrar}">Agregar periodista</a></li>
+                    <li><a class="dropdown-item" th:href="@{/admin/usuarios}">Lista usuarios</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+            <div class="row">
+                <div class="col-lg-auto nav-intem dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Perfil
+                    </a>
+                    <ul class="dropdown-menu ">
+                        <li><a class="dropdown-item me-1" th:href="@{/perfil}">Editar Perfil</a></li>
+                        <li><a class="dropdown-item me-1" href="/logout">Cerrar sesión</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
