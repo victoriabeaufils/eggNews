@@ -2,6 +2,7 @@ package com.egg.news.controladores;
 
 import com.egg.news.Enumeraciones.Rol;
 import com.egg.news.entidades.Noticia;
+import com.egg.news.entidades.Periodista;
 import com.egg.news.entidades.Usuario;
 import com.egg.news.excepciones.MiException;
 import com.egg.news.servicios.AdminServicio;
@@ -24,19 +25,19 @@ public class AdminControlador {
 
     @Autowired
     private AdminServicio adminServicio;
-
-    @Autowired
-    private NoticiaServicio noticiaServicio;
+//
+//    @Autowired
+//    private NoticiaServicio noticiaServicio;
 
     @Autowired
     private UsuarioServicio usuarioServicio;
 
-    @GetMapping("/dashboard")
-    public String panelAdministrativo(ModelMap modelo) {
-        List<Noticia> noticias = noticiaServicio.listaNoticias();
-        modelo.addAttribute("noticias", noticias);
-        return "inicio.html";
-    }
+//    @GetMapping("/dashboard")
+//    public String panelAdministrativo(ModelMap modelo) {
+//        List<Noticia> noticias = noticiaServicio.listaNoticias();
+//        modelo.addAttribute("noticias", noticias);
+//        return "inicio.html";
+//    }
 
     //Registro de periodistas por parte de un admin
     @GetMapping("/registrar")
@@ -45,10 +46,10 @@ public class AdminControlador {
     }
 
     @PostMapping("/registro")
-    public String registro(@RequestParam String nombreUsuario, @RequestParam String password, @RequestParam String password2, @RequestParam Integer sueldoMensual, ModelMap modelo) {
+    public String registro(MultipartFile archivo,@RequestParam String nombreUsuario, @RequestParam String password, @RequestParam String password2, @RequestParam Integer sueldoMensual, ModelMap modelo) {
 
         try {
-            adminServicio.registrarPeriosita(nombreUsuario, password, password2, sueldoMensual);
+            adminServicio.registrarPeriosita(archivo,nombreUsuario, password, password2, sueldoMensual);
             modelo.put("exito", "Periodista registrado correctamente");
             return "redirect:/inicio";
         } catch (MiException ex) {
@@ -59,16 +60,30 @@ public class AdminControlador {
 
     @GetMapping("/usuarios")
     public String listar(ModelMap modelo) {
-        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
+        List<Usuario> usuarios = adminServicio.listarUsuarios();
         modelo.addAttribute("usuarios", usuarios);
 
         return "lista_usuarios.html";
     }
+    
+        @GetMapping("/periodistas")
+    public String listarPeriodistas(ModelMap modelo) {
+        List<Usuario> periodistas = adminServicio.listarPeriodistas();
+        modelo.addAttribute("periodistas", periodistas);
+
+        return "lista_periodistas.html";
+    }
+    
+    
 
     @GetMapping("/modificarRol/{id}")
     public String cambiarRol(@PathVariable String id, @RequestParam String rol) {
         Rol nuevoRol = Rol.valueOf(rol); // Convertir el valor de String a enum
-        usuarioServicio.cambiarRol(id, nuevoRol);
+        try {
+            adminServicio.cambiarRol(id, nuevoRol);
+        } catch (MiException ex) {
+            System.out.println(ex.getMessage());
+        }
         return "redirect:/admin/usuarios";
     }
 

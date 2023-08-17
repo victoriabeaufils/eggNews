@@ -15,15 +15,15 @@
                 <!-- Contenedor de bienvenida para el Usuario -->
                 <div class="col d-flex align-items-center">
                     <div>
-                        
-                         <div class="profile-image-container rounded-circle overflow-hidden " style="width: 100px; height: 100px;">
-                             <a th:if="${session.usuarioSession != null}">
-                                 <img class="profile-image img-fluid" th:if="${session.usuarioSession.imagen != null}" th:src="@{/imagen/perfil/__${session.usuarioSession.id}__}" alt="img logo egg">
-                             </a>
-                         </div> 
+
+                        <div class="profile-image-container rounded-circle overflow-hidden " style="width: 100px; height: 100px;" th:if="${session.usuarioSession != null}">
+                            <a>
+                                <img class="profile-image img-fluid" th:src="@{/imagen/perfil/__${session.usuarioSession.id}__}" alt="img logo egg">
+                            </a>
+                        </div> 
                     </div>
                     <div class="ms-3">
-                        <h4 th:if="${session.usuarioSession != null}" th:text="'Hola de vuelta, ' + ${session.usuarioSession.nombreUsuario}"></h4>
+                        <h4 th:text="'Hola de vuelta, ' + ${usuario.nombreUsuario}"></h4>
                         <hr>
                         <h6 class="lead">Enterate de todas nuestras últimas noticias en tecnología</h6>
                     </div>

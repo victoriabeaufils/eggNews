@@ -20,6 +20,9 @@
                                 <label for="floatingInput">Nombre de usuario</label>
                             </div>
                             <div class="form-floating mb-3">
+                                <input type="file" class="form-control rounded-3" name="archivo">
+                            </div>
+                            <div class="form-floating mb-3">
                                 <input type="password" class="form-control rounded-3" id="floatingPassword" name="password" th:value="${password}"  placeholder="contraseña">
                                 <label for="floatingPassword">Contraseña</label>
                             </div>
@@ -35,17 +38,15 @@
                                 <input type="text" class="form-control rounded-3" id="floatingInput" name="sueldoMensual" th:value="${sueldoMensual}" placeholder="Sueldo">
                                 <label for="floatingInput">Sueldo</label>
                             </div>
-                            <div class="alert alert-success" role="alert" th:if="${exito != null}" >
-                                <h5> Exito! </h5>
-                                <p th:text="${exito}"></p>
-                            </div>
-                            <button class="w-100 mb-2 btn btn-lg rounded-3 btn-warning" type="submit">Registrar</button>
-                        </form>
-                        
-                        
+                            <div th:replace="/fragments/error-exito :: div"></div>
                     </div>
+                    <button class="w-100 mb-2 btn btn-lg rounded-3 btn-warning" type="submit">Registrar</button>
+                    </form>
+
+
                 </div>
             </div>
         </div>
-    </body>
+    </div>
+</body>
 </html>

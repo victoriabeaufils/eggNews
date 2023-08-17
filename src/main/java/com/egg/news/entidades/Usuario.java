@@ -17,7 +17,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "usuario")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Usuario {
  
     @Id

@@ -2,8 +2,10 @@ package com.egg.news.servicios;
 
 import com.egg.news.Enumeraciones.Rol;
 import com.egg.news.entidades.Imagen;
+import com.egg.news.entidades.Periodista;
 import com.egg.news.entidades.Usuario;
 import com.egg.news.excepciones.MiException;
+import com.egg.news.repositorios.PeriodistaRepositorio;
 import com.egg.news.repositorios.UsuarioRepositorio;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,11 +35,21 @@ public class UsuarioServicio implements UserDetailsService {
     @Autowired
     private ImagenServicio imagenServicio;
 
+    @Autowired
+    private PeriodistaRepositorio periodistaRepositorio;
+
+    @Autowired
+    private AdminServicio adminServicio;
+
     @Transactional
     public void registrar(MultipartFile archivo, String nombreUsuario, String password, String password2) throws MiException {
         //nombreUsuario, contraseña, booleano y la fecha de alta, Rol
 
         validar(nombreUsuario, password, password2);
+        
+        if (usuarioRepositorio.existsByNombreUsuario(nombreUsuario)) {
+            throw new MiException("El nombre de usuario ya está registrado.");
+        }
 
         Usuario usuario = new Usuario();
 
@@ -57,19 +69,20 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     @Transactional
-    public void actualizar(MultipartFile archivo,  String idUsuario, String nombreUsuario, String password, String password2) throws MiException {
+    public void actualizar(MultipartFile archivo, String idUsuario, String nombreUsuario, String password, String password2) throws MiException {
 
         validar(nombreUsuario, password, password2);
 
         Optional<Usuario> respuesta = usuarioRepositorio.findById(idUsuario);
 
         if (respuesta.isPresent()) {
-            
+
             Usuario usuario = respuesta.get();
             usuario.setNombreUsuario(nombreUsuario);
             usuario.setPassword(new BCryptPasswordEncoder().encode(password));
 
-            usuario.setRol(Rol.USER);
+            
+            usuario.setRol(usuario.getRol());
 
             String idImagen = null;
 
@@ -93,10 +106,6 @@ public class UsuarioServicio implements UserDetailsService {
 
         if (nombreUsuario == null || nombreUsuario.isEmpty()) {
             throw new MiException("El usuario no puede estar vacio o ser nulo");
-        }
-
-        if (usuarioRepositorio.existsByNombreUsuario(nombreUsuario)) {
-            throw new MiException("El nombre de usuario ya está registrado.");
         }
 
         if (password == null || password.isEmpty() || password.length() < 5) {
@@ -140,22 +149,6 @@ public class UsuarioServicio implements UserDetailsService {
 
     }
 
-    public List<Usuario> listarUsuarios() {
-        List<Usuario> usuarios = new ArrayList();
-
-        usuarios = usuarioRepositorio.findAll();
-
-        return usuarios;
-    }
-
-    @Transactional
-    public void cambiarRol(String id, Rol rol) {
-        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
-
-        if (respuesta.isPresent()) {
-            Usuario usuario = respuesta.get();
-            usuario.setRol(rol);
-        }
-    }
+    
 
 }

@@ -15,29 +15,36 @@
                         <th scope="col">Foto perfil</th>
                         <th scope="col">ID usuario</th>
                         <th scope="col">Nombre Usuario</th>
-                        <th scope="col">Rol</th>
-                        <th scope="col">Cambiar Rol</th>
+                        <th scope="col">Sueldo Mensual</th>
+                        <th scope="col">Noticias</th>
                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>
-                <tbody th:each="usuario : ${usuarios}">
+                <tbody th:each="usuario : ${periodistas}">
                     <tr>
                         <td class="profile-image-container overflow-hidden " style="width: 100px; height: 100px;">
                             <a><img class="profile-image img-fluid" th:if="${usuario.imagen != null}" th:src="@{/imagen/perfil/__${usuario.id}__}" style="width: 100px; height: 100px;"></a>
                         </td>
                         <td th:text="${usuario.id}"></td>
                         <td th:text="${usuario.nombreUsuario}"></td>
-                        <td th:text="${usuario.rol}"></td>
+                        <td th:text="${usuario.sueldoMensual}"></td>
+
                         <td>
-                            <a  th:href= "@{/admin/modificarRol/{id}(id=${usuario.id}, rol='USER')}">USER</a><br/>
-                            <a  th:href= "@{/admin/modificarRol/{id}(id=${usuario.id}, rol='PERIODISTA')}">PERIODISTA</a><br/>
-                            <a th:href= "@{/admin/modificarRol/{id}(id=${usuario.id}, rol='ADMIN')}">ADMIN</a>
+                            <ul class="list-unstyled"> 
+                                <li th:each="noticia : ${usuario.misNoticias}">
+                                    <a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                                       th:href="@{/noticia/__${noticia.id}__}" th:text="${noticia.titulo}"></a>
+                                </li>
+                            </ul>
                         </td>
-                        <td> 
-                            <a th:href= "@{/admin/modificar/__${usuario.id}__}">Modificar</a><br/>
-                            <a th:href= "@{/admin/modificar/__${usuario.id}__}">Dar de baja</a>
-                        </td>
-                    </tr>
+
+                <td> 
+                    <a class="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover"
+                       th:href= "@{/admin/modificar/__${usuario.id}__}">Modificar</a><br/>
+                    <a class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                       th:href= "@{/admin/modificar/__${usuario.id}__}">Dar de baja</a>
+                </td>
+                </tr>
 
                 </tbody>
             </table>

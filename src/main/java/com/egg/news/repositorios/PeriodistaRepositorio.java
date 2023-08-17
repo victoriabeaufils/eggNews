@@ -10,5 +10,7 @@ public interface PeriodistaRepositorio extends JpaRepository<Periodista, String>
     public Periodista findBynombreUsuario(String nombreUsuario);
 
     public boolean existsByNombreUsuario(String nombreUsuario);
+    
+
 
 }

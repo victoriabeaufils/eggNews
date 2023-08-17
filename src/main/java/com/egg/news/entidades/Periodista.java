@@ -6,11 +6,9 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
+
 
 @Entity
-@Table(name = "periodista")
-//JoinTable()
 public class Periodista extends Usuario {
     
     @OneToMany(mappedBy = "creador", cascade = CascadeType.ALL)

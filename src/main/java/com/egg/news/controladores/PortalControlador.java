@@ -37,12 +37,12 @@ public class PortalControlador {
     public String mostrarNoticias(ModelMap modelo, HttpSession session) {
         Usuario logueado = (Usuario) session.getAttribute("usuarioSession");
 
-
-        if (logueado.getRol().toString().equals("ADMIN")) {
-            return "redirect:/admin/dashboard";
-        }
+//        if (logueado.getRol().toString().equals("ADMIN")) {
+//            return "redirect:/admin/dashboard";
+//        }
         List<Noticia> noticias = noticiaServicio.listaNoticias();
         modelo.addAttribute("noticias", noticias);
+        modelo.put("usuario", usuarioServicio.getOne(logueado.getId()));
         return "inicio.html";
     }
 
@@ -85,12 +85,16 @@ public class PortalControlador {
     public String actualizar(MultipartFile archivo,@PathVariable String id, @RequestParam String nombreUsuario, 
             @RequestParam String password, @RequestParam String password2, ModelMap modelo) {
 
+        System.out.println(id);
         try {
             usuarioServicio.actualizar(archivo, id, nombreUsuario, password, password2);
             modelo.put("exito", "Usuario actualizado correctamente");
             return "redirect:/inicio";
         } catch (MiException ex) {
+            ex.printStackTrace();
             modelo.put("error", ex.getMessage());
+            //Necesitaba modelar de vuelta el usuario porque si no no puede recargar /perfil!!!
+            modelo.put("usuario", usuarioServicio.getOne(id));
         }
 
         return "usuario_modificar.html";

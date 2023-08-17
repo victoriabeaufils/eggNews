@@ -41,26 +41,21 @@ public class NoticiaServicio {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String nombreUsuario = authentication.getName();
-        Usuario usuario = usuarioRepositorio.buscarPeriodistaPorUser(nombreUsuario);
+        Periodista periodista = periodistaRepositorio.findBynombreUsuario(nombreUsuario);
 
-        if (usuario != null && usuario.getRol() == Rol.PERIODISTA) {
-            Periodista periodista = (Periodista) usuario;
-            Noticia noticia = new Noticia();
-            noticia.setTitulo(titulo);
-            noticia.setCuerpo(cuerpo);
-            noticia.setPublicacion(new Date());
-            noticia.setCreador(periodista);
-            periodista.getMisNoticias().add(noticia);
-            noticiaRepositorio.save(noticia);
-            periodistaRepositorio.save(periodista);
-        } else {
-            System.out.println("La noticia no pudo ser cargada");
-        }
+        Noticia noticia = new Noticia();
+        noticia.setTitulo(titulo);
+        noticia.setCuerpo(cuerpo);
+        noticia.setPublicacion(new Date());
+        noticia.setCreador(periodista);
+        periodista.getMisNoticias().add(noticia);
+        noticiaRepositorio.save(noticia);
+        periodistaRepositorio.save(periodista);
 
-    }
+}
 
-    @Transactional
-    public void modificarNoticia(String titulo, String cuerpo, Integer id) throws MiException {
+@Transactional
+public void modificarNoticia(String titulo, String cuerpo, Integer id) throws MiException {
         verificar(titulo, cuerpo);
         Optional<Noticia> respuesta = noticiaRepositorio.findById(id);
         if (respuesta.isPresent()) {
@@ -78,7 +73,7 @@ public class NoticiaServicio {
     }
 
     @Transactional
-    public void eliminarNoticia(Integer id) {
+public void eliminarNoticia(Integer id) {
         Optional<Noticia> respuesta = noticiaRepositorio.findById(id);
 
         if (respuesta.isPresent()) {
