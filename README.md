@@ -12,6 +12,7 @@ El portal de noticias Egg nació como pequeño proyecto de difusión de noticias
 -Thymeleaf
 
 ## Estructura del proyecto
+/
 ├── com.egg.news
     ├── com.egg.news.Enumeraciones
     |   	└── Rol.java
