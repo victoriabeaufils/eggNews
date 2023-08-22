@@ -9,6 +9,8 @@ import com.egg.news.servicios.AdminServicio;
 import com.egg.news.servicios.NoticiaServicio;
 import com.egg.news.servicios.UsuarioServicio;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -38,7 +40,6 @@ public class AdminControlador {
 //        modelo.addAttribute("noticias", noticias);
 //        return "inicio.html";
 //    }
-
     //Registro de periodistas por parte de un admin
     @GetMapping("/registrar")
     public String registrarPeriodista() {
@@ -46,10 +47,10 @@ public class AdminControlador {
     }
 
     @PostMapping("/registro")
-    public String registro(MultipartFile archivo,@RequestParam String nombreUsuario, @RequestParam String password, @RequestParam String password2, @RequestParam Integer sueldoMensual, ModelMap modelo) {
+    public String registro(MultipartFile archivo, @RequestParam String nombreUsuario, @RequestParam String password, @RequestParam String password2, @RequestParam Integer sueldoMensual, ModelMap modelo) {
 
         try {
-            adminServicio.registrarPeriosita(archivo,nombreUsuario, password, password2, sueldoMensual);
+            adminServicio.registrarPeriosita(archivo, nombreUsuario, password, password2, sueldoMensual);
             modelo.put("exito", "Periodista registrado correctamente");
             return "redirect:/inicio";
         } catch (MiException ex) {
@@ -65,16 +66,14 @@ public class AdminControlador {
 
         return "lista_usuarios.html";
     }
-    
-        @GetMapping("/periodistas")
+
+    @GetMapping("/periodistas")
     public String listarPeriodistas(ModelMap modelo) {
         List<Usuario> periodistas = adminServicio.listarPeriodistas();
         modelo.addAttribute("periodistas", periodistas);
 
         return "lista_periodistas.html";
     }
-    
-    
 
     @GetMapping("/modificarRol/{id}")
     public String cambiarRol(@PathVariable String id, @RequestParam String rol) {
@@ -97,16 +96,30 @@ public class AdminControlador {
     }
 
     @PostMapping("/modificar/{id}")
-    public String modificar(MultipartFile archivo, String nombreUsuario, String password, String password2, @PathVariable String id, ModelMap modelo) {
+    public String modificar(MultipartFile archivo, @PathVariable String id, String nombreUsuario, String password, String password2, ModelMap modelo) {
         try {
-            usuarioServicio.actualizar(archivo, nombreUsuario, password, password2, id);
-            return "redirect:../usuarios";
+            usuarioServicio.actualizar(archivo, id, nombreUsuario, password, password2);
+//            List<Usuario> usuarios = adminServicio.listarUsuarios();        
+//            modelo.addAttribute("usuarios", usuarios);
+            return "redirect:/admin/usuarios";
 
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
             return "panel.html";
         }
 
+    }
+
+    @GetMapping("/estadoPeriodista/{id}")
+    public String estadoPeriodista(@PathVariable String id) {
+        adminServicio.darDeBaja(id);
+        return "redirect:/admin/periodistas";
+    }
+    
+    @GetMapping("/estadoUsuario/{id}")
+    public String estadoUsuario(@PathVariable String id){
+        adminServicio.darDeBaja(id);
+        return "redirect:/admin/usuarios";
     }
 
 }

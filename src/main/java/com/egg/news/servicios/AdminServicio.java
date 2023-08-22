@@ -22,14 +22,15 @@ public class AdminServicio {
 
     @Autowired
     private PeriodistaRepositorio periodistaRepositorio;
-    
+
     @Autowired
     private ImagenServicio imagenServicio;
-    
-    @Autowired
-    private UsuarioRepositorio usuarioRepositorio; 
 
-    public Periodista registrarPeriosita(MultipartFile archivo,String nombreUsuario, String password, String password2, Integer sueldo) throws MiException {
+    @Autowired
+    private UsuarioRepositorio usuarioRepositorio;
+
+    //REGISTRO POR ADMINISTRACION DE PERIODISTAS
+    public Periodista registrarPeriosita(MultipartFile archivo, String nombreUsuario, String password, String password2, Integer sueldo) throws MiException {
         //nombreUsuario, contraseña, booleano y la fecha de alta, Rol
 
         validar(nombreUsuario, password, password2, sueldo);
@@ -43,13 +44,31 @@ public class AdminServicio {
         periodista.setRol(Rol.PERIODISTA);
         periodista.setSueldoMensual(sueldo);
         periodista.setMisNoticias(new ArrayList());
-        
+
         //Logica para guardar la imagen del usuario!
         Imagen imagen = imagenServicio.guardar(archivo);
 
         periodista.setImagen(imagen);
 
-       return periodistaRepositorio.save(periodista);
+        return periodistaRepositorio.save(periodista);
+
+    }
+
+    //DAR DE BAJA A UN PERIODISTA
+    public void darDeBaja(String id) {
+
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+
+            if (usuario.getActivo() == true) {
+                usuario.setActivo(false);
+            } else {
+                usuario.setActivo(true);
+            }
+            usuarioRepositorio.save(usuario);
+        }
 
     }
 
@@ -77,8 +96,6 @@ public class AdminServicio {
 
     }
 
-    
-    
     /*LISTA DE CONTROL*/
     public List<Usuario> listarUsuarios() {
         List<Usuario> usuarios = new ArrayList();
@@ -87,8 +104,8 @@ public class AdminServicio {
 
         return usuarios;
     }
-    
-     public List<Usuario> listarPeriodistas() {
+
+    public List<Usuario> listarPeriodistas() {
         List<Usuario> periodistas = new ArrayList();
 
         periodistas = usuarioRepositorio.buscarPorRolPeriodista();
@@ -96,10 +113,6 @@ public class AdminServicio {
         return periodistas;
     }
 
-    
-    
-    
-    
     /* CAMBIO DE ROL */
     @Transactional
     public void cambiarRol(String id, Rol rol) throws MiException {
@@ -107,7 +120,6 @@ public class AdminServicio {
 
         if (respuesta.isPresent()) {
             Usuario usuario = respuesta.get();
-
 
             if (rol == Rol.PERIODISTA) {
 
@@ -123,6 +135,5 @@ public class AdminServicio {
             }
         }
     }
-    
-    
+
 }

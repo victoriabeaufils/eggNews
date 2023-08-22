@@ -23,7 +23,8 @@
                         </div> 
                     </div>
                     <div class="ms-3">
-                        <h4 th:text="'Hola de vuelta, ' + ${usuario.nombreUsuario}"></h4>
+                        <h4 class="m-0" th:text="'Hola de vuelta, ' + ${usuario.nombreUsuario}"></h4>
+                        <p class="text-danger" th:unless="${usuario.activo}"><small> Tu rol como periodista se encuentra desactivado</small></p>
                         <hr>
                         <h6 class="lead">Enterate de todas nuestras últimas noticias en tecnología</h6>
                     </div>

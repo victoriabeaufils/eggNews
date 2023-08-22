@@ -34,8 +34,12 @@
                             <a th:href= "@{/admin/modificarRol/{id}(id=${usuario.id}, rol='ADMIN')}">ADMIN</a>
                         </td>
                         <td> 
-                            <a th:href= "@{/admin/modificar/__${usuario.id}__}">Modificar</a><br/>
-                            <a th:href= "@{/admin/modificar/__${usuario.id}__}">Dar de baja</a>
+                            <a class="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover"
+                               th:href= "@{/admin/modificar/__${usuario.id}__}">Modificar</a><br/>
+                            <a class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                               th:if="${usuario.activo}" th:href= "@{/admin/estadoUsuario/__${usuario.id}__}">Desactivar</a>
+                            <a class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                               th:unless="${usuario.activo}" th:href= "@{/admin/estadoUsuario/__${usuario.id}__}">Dar alta</a>
                         </td>
                     </tr>
 

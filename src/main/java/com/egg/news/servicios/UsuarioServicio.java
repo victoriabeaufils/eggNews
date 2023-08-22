@@ -125,7 +125,7 @@ public class UsuarioServicio implements UserDetailsService {
         Usuario usuario = usuarioRepositorio.buscarPorUser(nombreUsuario);
 
         if (usuario != null) {
-
+ 
             List<GrantedAuthority> permisos = new ArrayList();
 
             GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol());
@@ -143,7 +143,9 @@ public class UsuarioServicio implements UserDetailsService {
 
             return new User(usuario.getNombreUsuario(), usuario.getPassword(), permisos);
 
-        } else {
+        } 
+        
+        else {
             return null;
         }
 
