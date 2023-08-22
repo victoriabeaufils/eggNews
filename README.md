@@ -12,8 +12,7 @@ El portal de noticias Egg nació como pequeño proyecto de difusión de noticias
 -Thymeleaf
 
 ## Estructura del proyecto
-      /
-├── com.egg.news
+      / ├── com.egg.news
     ├── com.egg.news.Enumeraciones
     |   	└── Rol.java
     ├── com.egg.news.controladores
@@ -38,22 +37,24 @@ El portal de noticias Egg nació como pequeño proyecto de difusión de noticias
        	└── ImagenServicio.java
         └── NoticiaServicio.java
        	└── UsuarioServicio.java
-├── templates
-    |	├── error.html
-    |	├── index.html
-    |	├── inicio.html
-    |	├── lista_periodistas.html
-    |	├── lista_usuarios.html
-    |	├── login.html
-    |	├── noticia.html
-    |	├── noticia_form.html
-    |	├── noticia_modificar.html
-    |	├── panel.html
-    |	├── periodista_form.html
-    |	├── registro_form.html
-    |	└── usuario_modificar.html
-    └── templates.fragments
-      ├── error-exito.html
-      ├── footer.html
-      ├── footer.html
-      └── navbar.html
+        ├── templates
+        |	├── error.html
+        |	├── index.html
+        |	├── inicio.html
+        |	├── lista_periodistas.html
+        |	├── lista_usuarios.html
+        |	├── login.html
+        |	├── noticia.html
+        |	├── noticia_form.html
+        |	├── noticia_modificar.html
+        |	├── panel.html
+        |	├── periodista_form.html
+        |	├── registro_form.html
+        |	└── usuario_modificar.html
+        └── templates.fragments
+            ├── error-exito.html
+            ├── footer.html
+            ├── footer.html
+            └── navbar.html
+
+
